@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Humblebee Assignment: TheMealDb</title>
+    <style>
+        @font-face {
+            font-family: "SlateMedium";
+            src: url("./SlateMedium.TTF") format("opentype");
+            font-weight: medium;
+            font-style: normal;
+        }
+
+        header {
+            height: 9vw;
+            max-height: 70px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        body {
+            font-family: "SlateMedium";
+            background-color: #FEE4C3;
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            margin: 0;
+        }
+
+        .second-part-logo {
+            color: #188754;
+        }
+
+        .container-search-field {
+            background-color: #188754;
+            width: 100%;
+            height: 60vw;
+            max-height: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        input {
+            border-radius: 16px;
+            border: 1.5px solid;
+        }
+
+        .input-container {
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            margin-top: 20px;
+        }
+
+        .input-container input {
+            width: 60vw;
+            max-width: 300px;
+            padding-left: 10px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+
+
+        .search-icon-container {
+            position: absolute;
+            right: 1.5px;
+            border-top-right-radius: 16px;
+            border-bottom-right-radius: 16px;
+            top: 1.46px;
+            height: 76%;
+            border-left: 1.5 solid black;
+            cursor: pointer;
+            background-color: orange;
+            padding-top: 3px;
+            padding-bottom: 0;
+            padding-right: 6px;
+            padding-left: 4px;
+        }
+
+        .container-slogan {
+            font-size: 8vw;
+            margin-top: 11vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .first-part-of-slogan {
+            color: white;
+        }
+
+
+        .first-part-of-slogan::after {
+            content: "\a";
+            white-space: pre;
+        }
+
+        .second-part-of-slogan {
+            color: #F5BF0E;
+        }
+
+
+        .api-content-container {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+
+        .api-content-wrapper {
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .api-content-wrapper h1 {
+            font-size: 6vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: fit-content;
+        }
+
+        .second-wrapper {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .specific-recipe-container {
+            background-color: #188754;
+            width: 350px;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 16px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+
+        .image-wrapper {
+            width: 100%;
+            height: 80%;
+            cursor: pointer;
+            padding-top: 0;
+
+        }
+
+        .image-wrapper img {
+            margin-top: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .meal-name-wrapper {
+            height: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .meal-name-wrapper h3 {
+            cursor: pointer;
+        }
+
+        .second-image-wrapper {
+            width: 80vw;
+            height: 80vw;
+        }
+
+        .second-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .back-btn-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .back-btn-container button {
+            width: 16vw;
+            max-width: 150px;
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #188754;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .ingredients-and-quantity-wrapper {
+            min-width: 300px;
+        }
+
+
+        .error-message-container {
+            visibility: hidden;
+            font-size: 12px;
+            color: white;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        @media screen and (min-width: 586px) {
+            .api-content-container h1 {
+                font-size: 35px;
+            }
+        }
+
+        @media screen and (min-width: 650px) {
+            .container-slogan {
+
+                font-size: 52px;
+            }
+        }
+
+        @media screen and (min-width: 713px) {
+            .container-slogan {
+                margin-top: 80px;
+            }
+        }
+
+        @media screen and (min-width: 769px) {
+
+
+            .ingredients-and-quantity-wrapper {
+                margin-top: -18.5px;
+                margin-left: 20px;
+
+            }
+
+
+            .specific-meal-container {
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding-left: 40px;
+                padding-right: 40px;
+                border-radius: 16px;
+                border: 2px solid #188754;
+                width: 100%;
+                max-width: 800px;
+            }
+
+            .second-image-wrapper {
+                width: 350px;
+                height: 350px;
+                border-top-left-radius: 16px;
+                border-bottom-left-radius: 16px;
+                overflow: hidden;
+            }
+
+            .image-and-data-container {
+                display: flex;
+                align-items: flex-start;
+                justify-content: center;
+                width: fit-content;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1 class="logo">
+            <a href="./index.html">
+                <span class="firt-part-logo">Flavour</span><span class="second-part-logo">Scout</span>
+            </a>
+
+        </h1>
+    </header>
+
+    <main>
+        <div class="container-search-field">
+            <div class="container-slogan">
+                <span class="first-part-of-slogan">Let's start cooking with</span>
+                <span class="second-part-of-slogan">popular recipes</span>
+            </div>
+            <div class="input-container">
+                <input class="search-input-tbx" type="text" placeholder="Search by ingredient or title...">
+                <div class="search-icon-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </div>
+            </div>
+            <div class="error-message-container">
+                <p>*No recipees were found. Try another keyword</p>
+                <p></p>
+            </div>
+        </div>
+
+
+        <div class="api-content-container">
+            <div class="api-content-wrapper">
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+
+        //Variable used for dictating direction of back btn
+        let previousSearchResult = "";
+
+        //Add event to the document so that method is initated on page refresh
+        document.addEventListener("DOMContentLoaded", generateConentOnStart("g"));
+
+        //Select element from DOM
+        const apiResultsContainer = document.querySelector(".api-content-wrapper");
+
+
+        //Conduct a fetch on meals starting with letter g
+        function generateConentOnStart(incomingSearchQuery) {
+
+            //Initiate fetchAdress variable
+            let fetchAdress = "";
+
+            //Set fetch-adress depeding on incoming value
+            if (incomingSearchQuery === "g") {
+                fetchAdress = `https://www.themealdb.com/api/json/v1/1/search.php?f=${incomingSearchQuery}`;
+                previousSearchResult = incomingSearchQuery;
+            }
+            else {
+                fetchAdress = `https://www.themealdb.com/api/json/v1/1/search.php?s=${incomingSearchQuery}`;
+                previousSearchResult = incomingSearchQuery;
+            }
+
+            //Initialize variable to be populate during fetch
+            let stringForPopulatingDynamicDiv = "";
+
+            //Fetch data from API
+            fetch(`${fetchAdress}`)
+                .then((response) => response.json())
+                .then((result) => {
+
+                    //Abort if result.meals is null or undefined
+                    if (result.meals === null || result.meals === undefined) {
+                        document.querySelector(".error-message-container").style.visibility = "visible";
+                        //Abort the fetch
+                        return;
+                    }
+
+                    //Populate variable for every fetched meal
+                    for (let i = 0; i < result.meals.length; i++) {
+
+                        //Create data for dynamic div
+                        stringForPopulatingDynamicDiv += `
+                            <div class="specific-recipe-container">
+                                <div class="image-wrapper" data-meal-index="${i}" data-meal-id="${result.meals[i].idMeal}" onclick="showRecipeForSpecificMeal(this)">
+                                    <img src="${result.meals[i].strMealThumb}" alt="meal image">
+                                </div>
+                                <div class="meal-name-wrapper" data-meal-index="${i}" data-meal-id="${result.meals[i].idMeal}" onclick="showRecipeForSpecificMeal(this)">
+                                    <h3>${result.meals[i].strMeal}</h3>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+
+
+                    //Apend the html element with dynamic data
+                    apiResultsContainer.innerHTML = `<h1>Search result for: ${incomingSearchQuery}</h1>` + `
+                    <div class="second-wrapper">${stringForPopulatingDynamicDiv} </div>`;
+
+                    //Set value for previousSearchResult for back-btn
+                    previousSearchResult = incomingSearchQuery;
+
+                });
+
+
+
+        }
+
+
+        function showRecipeForSpecificMeal(objectInput) {
+
+            //Store values from the data-attribute, inside of incoming object
+            const mealIndex = objectInput.dataset.mealIndex;
+            const mealId = objectInput.dataset.mealId;
+
+            //Select element from DOM
+            const apiResultsContainer = document.querySelector(".api-content-wrapper");
+
+            //Create variable to be used for storing data for specific meal
+            let dataForSpecificMeal = "";
+
+            //Fetch data from API
+            fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`)
+                .then((response) => response.json())
+                .then((result) => {
+
+                    /*=========================*/
+                    /*==== GET INGREDIENTS ====*/
+                    /*=========================*/
+
+                    // Get all the keys from the first meal object
+                    const keysIngredients = Object.keys(result.meals[0]);
+
+                    // Filter out keys that start with "strIngredient" and check value is not ""/null
+                    const ingredientKeys = keysIngredients.filter(key => key.startsWith('strIngredient') && result.meals[0][key]);
+
+                    //Get the corresponding ingredient values
+                    const ingredients = ingredientKeys.map(key => result.meals[0][key]);
+
+
+
+                    /*==========================================*/
+                    /*==== GET QUANTITY FOR EACH INGREDIENT ====*/
+                    /*==========================================*/
+
+                    // Get all the keys from the first meal object
+                    const keysQuantity = Object.keys(result.meals[0]);
+
+                    // Filter out keys that start with "strMeasure" followed by a number
+                    const measurementKeys = keysQuantity.filter(key => key.startsWith('strMeasure') && result.meals[0][key]);
+
+                    // Get the corresponding measurement values
+                    const measurements = measurementKeys.map(key => result.meals[0][key]);
+
+
+                    //Create string variable to be used for storing dynamic data for ingredients & measurements
+                    let ingredientsAndQuantityDynamicData = '';
+
+                    //Create a li-element for every ingredient and measurement
+                    for (let i = 0; i < ingredients.length; i++) {
+                        ingredientsAndQuantityDynamicData += `
+                            <li>${ingredients[i]} - ${measurements[i]}</li>
+                        `;
+                    }
+
+
+
+                    /*============================*/
+                    /*==== CREATE DYNAMIC DIV ====*/
+                    /*============================*/
+
+                    //Create the final dynamic div including, meal title, measurements and ingredients
+                    dataForSpecificMeal = `
+                        <div class="specific-meal-container">
+                            <h1>${result.meals[0].strMeal}</h1>
+
+                            <div class="image-and-data-container">
+
+                                <div class="second-image-wrapper">
+                                    <img src="${result.meals[0].strMealThumb}" alt="meal image">
+                                </div>
+
+                                <div class="ingredients-and-quantity-container">
+                                    <div class="ingredients-and-quantity-wrapper">
+                                        <h3>Ingredients & Measurements</h3>
+                                        <ul>
+                                            ${ingredientsAndQuantityDynamicData}
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="back-btn-container">
+                                <button onClick="generateConentOnStart('${previousSearchResult}')">Back</button>
+                            </div>
+                        </div>
+                    `;
+
+                    //Apend the html element with dynamic data
+                    apiResultsContainer.innerHTML = dataForSpecificMeal;
+                });
+        }
+
+
+        /*==== SEARCH FUNCTIONALITY ====*/
+
+        //Get elements from DOM
+        const searchBtn = document.querySelector(".search-icon-container");
+        const searchInputTbx = document.querySelector(".search-input-tbx");
+
+        //Call method for fetching data, on btn click
+        searchBtn.addEventListener("click", () => {
+            //Pass input value to method
+            generateConentOnStart(searchInputTbx.value)
+            //Clear the input value
+            searchInputTbx.value = "";
+        })
+
+        //Eventlistener for detecting Enter when typing in input
+        searchInputTbx.addEventListener('keypress', (event) => {
+            //If Enter is pressed
+            if (event.key === 'Enter') {
+                //Pass input value to method
+                generateConentOnStart(searchInputTbx.value);
+                //Clear the input value
+                searchInputTbx.value = "";
+            }
+        });
+
+
+        // Get the input field and error message container elements
+        const errorMessageContainer = document.querySelector(".error-message-container");
+
+        // Add event listener for focus event on the input field
+        searchInputTbx.addEventListener("input", () => {
+            // Hide the error message container
+            errorMessageContainer.style.visibility = "hidden";
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>
